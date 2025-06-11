@@ -85,6 +85,46 @@ api_key: "your-api-key"  # Optional
 
 Note: The `api_key` field is optional in both configuration files. If your connector requires authentication, provide the API key; otherwise, you can omit this field.
 
+## Python Example
+
+An example Python script is provided to demonstrate how to use the CLI programmatically. The script shows how to:
+- Call the CLI to get asset access details
+- Parse the JSON output
+- Use the access details to interact with the provider's server
+
+### Setup
+
+1. Build the CLI binary and copy it to the repository root:
+```bash
+cargo build --release
+cp target/release/dataspace_cli .
+```
+
+2. Install Python dependencies:
+```bash
+pip install -r examples/requirements.txt
+```
+
+3. Prepare your configuration files:
+   - Create `consumer_private.yaml` and `provider_private.yaml` in the repository root
+   - Add your configuration details as shown in the Configuration Files section above
+
+### Running the Example
+
+```bash
+python examples/get_asset_data.py
+```
+
+The script will:
+1. Call the CLI to get access details for a specified asset
+2. Print the received access details (endpoint and authorization token)
+3. Demonstrate how to use these details for accessing the asset
+
+You can modify the script to:
+- Change the asset ID and configuration file paths
+- Implement your own logic for interacting with the provider's server
+- Add additional error handling
+
 ## Error Handling
 
 The tool provides detailed error messages when:
