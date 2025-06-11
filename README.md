@@ -2,6 +2,8 @@
 
 A command-line interface tool for managing data assets in a dataspace environment.
 
+In general, it offers a more handy way of doing the things that you could do by hand by following the tutorial in [management API overview](https://smart-systems-hub.github.io/docs/Management-API-Overview.html).
+
 ## Prerequisites
 
 - Rust toolchain (1.75 or later recommended)
