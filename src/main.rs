@@ -1,6 +1,5 @@
 use clap::Parser;
 use dataspace_cli::{get_asset_access, provide_data};
-use serde_json;
 
 #[derive(clap::Parser)]
 #[command(name = "Your CLI Tool", author, version, about, long_about = None)]
