@@ -1,5 +1,6 @@
 use clap::Parser;
 use dataspace_cli::{get_asset_access, provide_data};
+use serde_json;
 
 #[derive(clap::Parser)]
 #[command(name = "Your CLI Tool", author, version, about, long_about = None)]
@@ -53,7 +54,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         } => {
             let asset_access =
                 get_asset_access(&asset_id, &consumer_config, &provider_config).await?;
-            println!("{asset_access:?}")
+            println!("{}", serde_json::to_string(&asset_access)?);
         }
     }
     Ok(())

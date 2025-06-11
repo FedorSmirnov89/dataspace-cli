@@ -1,13 +1,13 @@
 use anyhow::{Context, Result, anyhow, bail};
 use reqwest::Client;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 use crate::{
     config::ConnectorConfig,
     urls::{catalogue_request_url, edr_read_url, edrs_url, request_edr_url},
 };
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct AssetAccess {
     #[serde(rename = "endpoint")]
     pub asset_url: String,
