@@ -1,5 +1,5 @@
 use clap::Parser;
-use dataspace_cli::{get_asset_access, provide_data};
+use dataspace_cli::{get_asset_access, provide_data, read_catalogue};
 
 #[derive(clap::Parser)]
 #[command(name = "Your CLI Tool", author, version, about, long_about = None)]
@@ -30,6 +30,14 @@ enum Commands {
         #[arg(long)]
         provider_config: String,
     },
+
+    /// Read catalogue
+    ReadCatalogue {
+        #[arg(long)]
+        consumer_config: String,
+        #[arg(long)]
+        provider_config: String,
+    },
 }
 
 #[tokio::main]
@@ -55,6 +63,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 get_asset_access(&asset_id, &consumer_config, &provider_config).await?;
             println!("{}", serde_json::to_string(&asset_access)?);
         }
+
+        Commands::ReadCatalogue {
+            consumer_config,
+            provider_config,
+        } => read_catalogue(&consumer_config, &provider_config).await?,
     }
     Ok(())
 }

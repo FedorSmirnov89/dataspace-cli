@@ -210,23 +210,23 @@ async fn negotiate_edr(
 }
 
 #[derive(Deserialize, Debug)]
-struct Catalogue {
+pub(crate) struct Catalogue {
     #[serde(rename = "dcat:dataset")]
-    dataset: Vec<CatalogueEntry>,
+    pub(crate) dataset: Vec<CatalogueEntry>,
 }
 
 #[derive(Deserialize, Debug)]
-struct CatalogueEntry {
+pub(crate) struct CatalogueEntry {
     #[serde(rename = "@id")]
-    id: String,
+    pub(crate) id: String,
     #[serde(rename = "odrl:hasPolicy")]
-    policy: Policy,
+    pub(crate) policy: Policy,
 }
 
 #[derive(Deserialize, Debug)]
-struct Policy {
+pub(crate) struct Policy {
     #[serde(rename = "@id")]
-    id: String,
+    pub(crate) id: String,
 }
 
 // reads the catalogue and returns the policy id of the asset with the provided ID
