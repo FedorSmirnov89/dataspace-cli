@@ -6,7 +6,7 @@ pub(crate) struct ConnectorConfig {
     pub(crate) base_url: String,
     pub(crate) dsp_url: String,
     pub(crate) bpn: String,
-    pub(crate) api_key: String,
+    pub(crate) api_key: Option<String>,
 }
 
 impl ConnectorConfig {

@@ -1,4 +1,4 @@
-use anyhow::{Context, Result, bail};
+use anyhow::{Context, Result, anyhow, bail};
 use reqwest::Client;
 
 use crate::{
@@ -63,10 +63,15 @@ async fn create_contract(
         access_policy_id = access_policy_id(asset_id)
     );
 
+    let provider_api_key = provider_config
+        .api_key
+        .clone()
+        .ok_or(anyhow!("provider config does not specify API key"))?;
+
     // First request to get the key
     let response = client
         .post(create_contract_url(provider_config))
-        .header("x-api-key", &provider_config.api_key)
+        .header("x-api-key", provider_api_key)
         .header("Content-Type", "application/json")
         .body(body)
         .send()
@@ -116,12 +121,17 @@ async fn create_access_policy(
         access_policy_id = access_policy_id(asset_id)
     );
 
+    let provider_api_key = provider_config
+        .api_key
+        .clone()
+        .ok_or(anyhow!("provider config does not specify API key"))?;
+
     let access_policy_url = access_policy_url(provider_config);
 
     // First request to get the key
     let response = client
         .post(access_policy_url)
-        .header("x-api-key", &provider_config.api_key)
+        .header("x-api-key", provider_api_key)
         .header("Content-Type", "application/json")
         .body(body)
         .send()
@@ -159,10 +169,15 @@ async fn create_usage_policy(
         usage_policy = usage_policy_id(asset_id)
     );
 
+    let provider_api_key = provider_config
+        .api_key
+        .clone()
+        .ok_or(anyhow!("provider config does not specify API key"))?;
+
     // First request to get the key
     let response = client
         .post(usage_policy_url(provider_config))
-        .header("x-api-key", &provider_config.api_key)
+        .header("x-api-key", provider_api_key)
         .header("Content-Type", "application/json")
         .body(body)
         .send()
@@ -203,10 +218,15 @@ async fn create_asset(
 
     let asset_create_url = asset_create_url(provider_config);
 
+    let provider_api_key = provider_config
+        .api_key
+        .clone()
+        .ok_or(anyhow!("provider config does not specify API key"))?;
+
     // First request to get the key
     let response = client
         .post(asset_create_url)
-        .header("x-api-key", &provider_config.api_key)
+        .header("x-api-key", provider_api_key)
         .header("Content-Type", "application/json")
         .body(body)
         .send()

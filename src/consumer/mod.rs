@@ -49,10 +49,15 @@ async fn read_edr_details(
 ) -> Result<AssetAccess> {
     let edr_read_url = edr_read_url(consumer_config, transfer_id);
 
+    let consumer_api_key = consumer_config
+        .api_key
+        .clone()
+        .ok_or(anyhow!("provider config does not specify API key"))?;
+
     // First request to get the key
     let key = client
         .get(edr_read_url)
-        .header("x-api-key", &consumer_config.api_key)
+        .header("x-api-key", consumer_api_key)
         .header("Content-Type", "application/json")
         .send()
         .await
@@ -102,10 +107,15 @@ async fn request_edr(
   "#
     );
 
+    let consumer_api_key = consumer_config
+        .api_key
+        .clone()
+        .ok_or(anyhow!("provider config does not specify API key"))?;
+
     // First request to get the key
     let key = client
         .post(request_edr_url(consumer_config))
-        .header("x-api-key", &consumer_config.api_key)
+        .header("x-api-key", consumer_api_key)
         .header("Content-Type", "application/json")
         .body(body)
         .send()
@@ -179,9 +189,14 @@ async fn negotiate_edr(
 
     let edrs_url = edrs_url(consumer_config);
 
+    let consumer_api_key = consumer_config
+        .api_key
+        .clone()
+        .ok_or(anyhow!("provider config does not specify API key"))?;
+
     let response = client
         .post(edrs_url)
-        .header("x-api-key", &consumer_config.api_key)
+        .header("x-api-key", consumer_api_key)
         .header("Content-Type", "application/json")
         .body(body)
         .send()
@@ -240,10 +255,15 @@ async fn read_policy_id_from_catalogue(
         provider_bpn = &provider_config.bpn
     );
 
+    let consumer_api_key = consumer_config
+        .api_key
+        .clone()
+        .ok_or(anyhow!("provider config does not specify API key"))?;
+
     // First request to get the key
     let key = client
         .post(catalogue_request_url(consumer_config))
-        .header("x-api-key", &consumer_config.api_key)
+        .header("x-api-key", consumer_api_key)
         .header("Content-Type", "application/json")
         .body(body)
         .send()
